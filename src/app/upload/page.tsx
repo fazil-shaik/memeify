@@ -1,31 +1,13 @@
 'use client';
 import { useState } from 'react';
-import { signOut, signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
-export default function AdminPage() {
-  const { data: session, status } = useSession();
+export default function UploadPage() {
+  const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-
-  if (status === 'loading') {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
-  }
-
-  if (!session) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-        <h1 className="text-2xl font-bold mb-4">Admin Login Required</h1>
-        <button 
-          onClick={() => signIn()}
-          className="bg-blue-600 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-700"
-        >
-          Login as Admin
-        </button>
-      </div>
-    );
-  }
 
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,8 +28,7 @@ export default function AdminPage() {
 
       if (res.ok) {
         setMessage('Template uploaded successfully!');
-        setName('');
-        setFile(null);
+        setTimeout(() => router.push('/'), 1500);
       } else {
         setMessage('Failed to upload template.');
       }
@@ -62,20 +43,12 @@ export default function AdminPage() {
     <div className="min-h-screen bg-gray-50 p-8 font-[family-name:var(--font-geist-sans)]">
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Admin Panel</h1>
-          <div className="flex gap-4">
-            <a href="/" className="text-blue-600 hover:underline font-medium my-auto">Back to Home</a>
-            <button 
-              onClick={() => signOut({ callbackUrl: '/' })}
-              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 text-sm font-medium"
-            >
-              Sign Out
-            </button>
-          </div>
+          <h1 className="text-3xl font-bold text-gray-900">Upload Template</h1>
+          <a href="/" className="text-blue-600 hover:underline font-medium">Back to Home</a>
         </div>
         
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">Upload New Meme Template</h2>
+          <p className="text-gray-600 mb-6">Share a new blank meme template with the community!</p>
           <form onSubmit={handleUpload} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">Template Name</label>

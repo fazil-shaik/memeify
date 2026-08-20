@@ -35,7 +35,10 @@ export default function Home() {
       <header className="bg-white shadow-sm sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-black tracking-tight text-blue-600">MemesOK Clone</h1>
-          <a href="/admin" className="text-sm font-semibold hover:text-blue-600">Admin Panel</a>
+          <div className="flex gap-4 items-center">
+            <a href="/upload" className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-md hover:bg-blue-100">Upload Template</a>
+            <a href="/admin" className="text-sm font-semibold hover:text-blue-600">Admin Panel</a>
+          </div>
         </div>
       </header>
 
