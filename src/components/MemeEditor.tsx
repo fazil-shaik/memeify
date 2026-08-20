@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { fabric } from 'fabric/index';
+import { fabric } from 'fabric';
 
 interface MemeEditorProps {
   templateUrl: string;
@@ -26,10 +26,12 @@ export default function MemeEditor({ templateUrl }: MemeEditorProps) {
     // Load template image
     if (templateUrl) {
       fabric.Image.fromURL(templateUrl, (img) => {
+        if (!img) return;
+
         // Scale image to fit canvas
         const scale = Math.min(
-          initCanvas.width! / img.width!,
-          initCanvas.height! / img.height!
+          initCanvas.width! / (img.width || 1),
+          initCanvas.height! / (img.height || 1)
         );
 
         img.scale(scale);

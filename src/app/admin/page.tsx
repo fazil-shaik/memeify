@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { signOut } from 'next-auth/react';
 
 export default function AdminPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -39,9 +40,20 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-gray-50 p-8 font-[family-name:var(--font-geist-sans)]">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-gray-900">Admin Panel</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-gray-900">Admin Panel</h1>
+          <div className="flex gap-4">
+            <a href="/" className="text-blue-600 hover:underline font-medium my-auto">Back to Home</a>
+            <button 
+              onClick={() => signOut({ callbackUrl: '/' })}
+              className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 text-sm font-medium"
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
         
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Upload New Meme Template</h2>
@@ -72,7 +84,7 @@ export default function AdminPage() {
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium"
             >
               {loading ? 'Uploading...' : 'Upload Template'}
             </button>
