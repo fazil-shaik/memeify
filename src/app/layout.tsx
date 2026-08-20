@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MemesOK Clone",
-  description: "Generate and share memes",
+  title: "Memeify | The Ultimate Meme Studio",
+  description: "Create, edit, and share viral memes instantly.",
 };
 
 export default function RootLayout({
